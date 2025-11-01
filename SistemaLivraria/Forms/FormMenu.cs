@@ -28,5 +28,10 @@ namespace SistemaLivraria.Forms
             formLogin.Show();
             this.Hide();
         }
+
+        private void FormMenu_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

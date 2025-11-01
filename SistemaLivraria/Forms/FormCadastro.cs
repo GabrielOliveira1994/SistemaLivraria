@@ -1,5 +1,9 @@
 ﻿using System;
+using System.Data.SqlClient;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
+using SistemaLivraria.Database;
+using SistemaLivraria.Models;
 
 namespace SistemaLivraria.Forms
 {
@@ -7,35 +11,301 @@ namespace SistemaLivraria.Forms
     {
         private string tipoUsuario; // "Cliente" ou "Editora"
 
-        // Construtor SEM parâmetros (para o designer funcionar)
         public FormCadastro()
         {
             InitializeComponent();
         }
 
-        // Método público para definir o tipo depois
         public void DefinirTipo(string tipo)
         {
             tipoUsuario = tipo;
             this.Text = $"Cadastro - {tipo}";
 
-            // Você pode mostrar/esconder campos dependendo do tipo
+            // Mostrar/Esconder campos específicos
             if (tipo == "Cliente")
             {
-                // Mostrar campos de Cliente (Nome, CPF)
-                // Esconder campos de Editora (Razão Social, CNPJ)
+                lblNome.Text = "Nome Completo:";
+                lblDocumento.Text = "CPF:";
+                txtDocumento.MaxLength = 14; // 000.000.000-00
+
+                // Ocultar campos de editora (se existirem)
             }
             else if (tipo == "Editora")
             {
-                // Mostrar campos de Editora
-                // Esconder campos de Cliente
+                lblNome.Text = "Razão Social:";
+                lblDocumento.Text = "CNPJ:";
+                txtDocumento.MaxLength = 18; // 00.000.000/0000-00
             }
         }
 
         private void btnSalvar_Click(object sender, EventArgs e)
         {
-            // TODO: Implementar cadastro
-            MessageBox.Show($"Cadastro de {tipoUsuario} será implementado!");
+            // Validações
+            if (!ValidarCampos())
+                return;
+
+            if (tipoUsuario == "Cliente")
+            {
+                if (CadastrarCliente())
+                {
+                    MessageBox.Show("Cliente cadastrado com sucesso!", "Sucesso",
+                                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    // Abrir tela de login
+                    FormLogin formLogin = new FormLogin();
+                    formLogin.DefinirTipo("Cliente");
+                    formLogin.Show();
+                    this.Close();
+                }
+            }
+            else if (tipoUsuario == "Editora")
+            {
+                if (CadastrarEditora())
+                {
+                    MessageBox.Show("Editora cadastrada com sucesso!", "Sucesso",
+                                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    // Abrir tela de login
+                    FormLogin formLogin = new FormLogin();
+                    formLogin.DefinirTipo("Editora");
+                    formLogin.Show();
+                    this.Close();
+                }
+            }
+        }
+
+        private bool ValidarCampos()
+        {
+            // Validar campos vazios
+            if (string.IsNullOrWhiteSpace(txtNome.Text) ||
+                string.IsNullOrWhiteSpace(txtDocumento.Text) ||
+                string.IsNullOrWhiteSpace(txtEmail.Text) ||
+                string.IsNullOrWhiteSpace(txtSenha.Text) ||
+                string.IsNullOrWhiteSpace(txtConfirmarSenha.Text))
+            {
+                MessageBox.Show("Preencha todos os campos obrigatórios!", "Atenção",
+                                MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
+
+            // Validar email
+            if (!ValidarEmail(txtEmail.Text))
+            {
+                MessageBox.Show("Email inválido!", "Atenção",
+                                MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtEmail.Focus();
+                return false;
+            }
+
+            // Validar senhas iguais
+            if (txtSenha.Text != txtConfirmarSenha.Text)
+            {
+                MessageBox.Show("As senhas não coincidem!", "Atenção",
+                                MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtConfirmarSenha.Focus();
+                return false;
+            }
+
+            // Validar documento (CPF ou CNPJ)
+            if (tipoUsuario == "Cliente")
+            {
+                if (!ValidarCPF(txtDocumento.Text))
+                {
+                    MessageBox.Show("CPF inválido!", "Atenção",
+                                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    txtDocumento.Focus();
+                    return false;
+                }
+            }
+            else if (tipoUsuario == "Editora")
+            {
+                if (!ValidarCNPJ(txtDocumento.Text))
+                {
+                    MessageBox.Show("CNPJ inválido!", "Atenção",
+                                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    txtDocumento.Focus();
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        private bool CadastrarCliente()
+        {
+            try
+            {
+                using (SqlConnection conexao = Conexao.ObterConexao())
+                {
+                    string query = @"INSERT INTO CLIENTE 
+                                    (NOME, CPF, EMAIL, SENHA, TELEFONE, CEP, LOGRADOURO, 
+                                     NUMERO, COMPLEMENTO, BAIRRO, CIDADE, ESTADO) 
+                                    VALUES 
+                                    (@Nome, @CPF, @Email, @Senha, @Telefone, @CEP, @Logradouro, 
+                                     @Numero, @Complemento, @Bairro, @Cidade, @Estado)";
+
+                    SqlCommand cmd = new SqlCommand(query, conexao);
+                    cmd.Parameters.AddWithValue("@Nome", txtNome.Text);
+                    cmd.Parameters.AddWithValue("@CPF", LimparDocumento(txtDocumento.Text));
+                    cmd.Parameters.AddWithValue("@Email", txtEmail.Text);
+                    cmd.Parameters.AddWithValue("@Senha", txtSenha.Text);
+                    cmd.Parameters.AddWithValue("@Telefone", txtTelefone.Text ?? "");
+                    cmd.Parameters.AddWithValue("@CEP", txtCEP.Text ?? "");
+                    cmd.Parameters.AddWithValue("@Logradouro", txtLogradouro.Text ?? "");
+                    cmd.Parameters.AddWithValue("@Numero", txtNumero.Text ?? "");
+                    cmd.Parameters.AddWithValue("@Complemento", txtComplemento.Text ?? "");
+                    cmd.Parameters.AddWithValue("@Bairro", txtBairro.Text ?? "");
+                    cmd.Parameters.AddWithValue("@Cidade", txtCidade.Text ?? "");
+                    cmd.Parameters.AddWithValue("@Estado", txtEstado.Text ?? "");
+
+                    cmd.ExecuteNonQuery();
+                    return true;
+                }
+            }
+            catch (SqlException ex)
+            {
+                if (ex.Message.Contains("UNIQUE"))
+                {
+                    MessageBox.Show("Este CPF ou Email já está cadastrado!", "Erro",
+                                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else
+                {
+                    MessageBox.Show("Erro ao cadastrar: " + ex.Message, "Erro",
+                                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                return false;
+            }
+        }
+
+        private bool CadastrarEditora()
+        {
+            try
+            {
+                using (SqlConnection conexao = Conexao.ObterConexao())
+                {
+                    string query = @"INSERT INTO EDITORA 
+                                    (RAZAO_SOCIAL, CNPJ, EMAIL, SENHA, TELEFONE, CEP, LOGRADOURO, 
+                                     NUMERO, COMPLEMENTO, BAIRRO, CIDADE, ESTADO) 
+                                    VALUES 
+                                    (@RazaoSocial, @CNPJ, @Email, @Senha, @Telefone, @CEP, @Logradouro, 
+                                     @Numero, @Complemento, @Bairro, @Cidade, @Estado)";
+
+                    SqlCommand cmd = new SqlCommand(query, conexao);
+                    cmd.Parameters.AddWithValue("@RazaoSocial", txtNome.Text);
+                    cmd.Parameters.AddWithValue("@CNPJ", LimparDocumento(txtDocumento.Text));
+                    cmd.Parameters.AddWithValue("@Email", txtEmail.Text);
+                    cmd.Parameters.AddWithValue("@Senha", txtSenha.Text);
+                    cmd.Parameters.AddWithValue("@Telefone", txtTelefone.Text ?? "");
+                    cmd.Parameters.AddWithValue("@CEP", txtCEP.Text ?? "");
+                    cmd.Parameters.AddWithValue("@Logradouro", txtLogradouro.Text ?? "");
+                    cmd.Parameters.AddWithValue("@Numero", txtNumero.Text ?? "");
+                    cmd.Parameters.AddWithValue("@Complemento", txtComplemento.Text ?? "");
+                    cmd.Parameters.AddWithValue("@Bairro", txtBairro.Text ?? "");
+                    cmd.Parameters.AddWithValue("@Cidade", txtCidade.Text ?? "");
+                    cmd.Parameters.AddWithValue("@Estado", txtEstado.Text ?? "");
+
+                    cmd.ExecuteNonQuery();
+                    return true;
+                }
+            }
+            catch (SqlException ex)
+            {
+                if (ex.Message.Contains("UNIQUE"))
+                {
+                    MessageBox.Show("Este CNPJ ou Email já está cadastrado!", "Erro",
+                                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else
+                {
+                    MessageBox.Show("Erro ao cadastrar: " + ex.Message, "Erro",
+                                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                return false;
+            }
+        }
+
+        // ===== MÉTODOS DE VALIDAÇÃO =====
+
+        private bool ValidarEmail(string email)
+        {
+            string pattern = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
+            return Regex.IsMatch(email, pattern);
+        }
+
+        private bool ValidarCPF(string cpf)
+        {
+            cpf = LimparDocumento(cpf);
+
+            if (cpf.Length != 11)
+                return false;
+
+            // CPFs inválidos conhecidos
+            if (cpf == "00000000000" || cpf == "11111111111" ||
+                cpf == "22222222222" || cpf == "33333333333" ||
+                cpf == "44444444444" || cpf == "55555555555" ||
+                cpf == "66666666666" || cpf == "77777777777" ||
+                cpf == "88888888888" || cpf == "99999999999")
+                return false;
+
+            // Validação dos dígitos verificadores
+            int[] multiplicador1 = { 10, 9, 8, 7, 6, 5, 4, 3, 2 };
+            int[] multiplicador2 = { 11, 10, 9, 8, 7, 6, 5, 4, 3, 2 };
+
+            string tempCpf = cpf.Substring(0, 9);
+            int soma = 0;
+
+            for (int i = 0; i < 9; i++)
+                soma += int.Parse(tempCpf[i].ToString()) * multiplicador1[i];
+
+            int resto = soma % 11;
+            resto = resto < 2 ? 0 : 11 - resto;
+
+            string digito = resto.ToString();
+            tempCpf = tempCpf + digito;
+            soma = 0;
+
+            for (int i = 0; i < 10; i++)
+                soma += int.Parse(tempCpf[i].ToString()) * multiplicador2[i];
+
+            resto = soma % 11;
+            resto = resto < 2 ? 0 : 11 - resto;
+
+            digito = digito + resto.ToString();
+
+            return cpf.EndsWith(digito);
+        }
+
+        private bool ValidarCNPJ(string cnpj)
+        {
+            cnpj = LimparDocumento(cnpj);
+
+            if (cnpj.Length != 14)
+                return false;
+
+            // CNPJs inválidos conhecidos
+            if (cnpj == "00000000000000" || cnpj == "11111111111111" ||
+                cnpj == "22222222222222" || cnpj == "33333333333333" ||
+                cnpj == "44444444444444" || cnpj == "55555555555555" ||
+                cnpj == "66666666666666" || cnpj == "77777777777777" ||
+                cnpj == "88888888888888" || cnpj == "99999999999999")
+                return false;
+
+            // Validação simplificada (pode melhorar depois)
+            return true;
+        }
+
+        private string LimparDocumento(string documento)
+        {
+            return Regex.Replace(documento, @"[^\d]", "");
+        }
+
+        private void btnVoltar_Click(object sender, EventArgs e)
+        {
+            FormLogin formLogin = new FormLogin();
+            formLogin.DefinirTipo(tipoUsuario);
+            formLogin.Show();
+            this.Close();
         }
     }
 }
