@@ -4,12 +4,16 @@ using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using SistemaLivraria.Database;
 using SistemaLivraria.Models;
+using System.IO; // ← Para FileStream
+using System.Drawing; // ← Para Image
 
 namespace SistemaLivraria.Forms
 {
     public partial class FormCadastro : Form
     {
         private string tipoUsuario; // "Cliente" ou "Editora"
+        private byte[] imagemIcon = null;    // ← NOVA!
+        private byte[] imagemCapa = null;    // ← NOVA!
 
         public FormCadastro()
         {
@@ -35,6 +39,77 @@ namespace SistemaLivraria.Forms
                 lblNome.Text = "Razão Social:";
                 lblDocumento.Text = "CNPJ:";
                 txtDocumento.MaxLength = 18; // 00.000.000/0000-00
+                                             // Mostrar campos de capa
+                lblCapa.Visible = true;
+                picCapa.Visible = true;
+                btnSelecionarCapa.Visible = true;
+            }
+        }
+
+        // Botão SELECIONAR ICON
+        private void btnSelecionarIcon_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFile = new OpenFileDialog();
+            openFile.Filter = "Imagens|*.jpg;*.jpeg;*.png;*.bmp";
+            openFile.Title = "Selecione uma foto de perfil";
+
+            if (openFile.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    // Carrega a imagem no PictureBox
+                    picIcon.Image = Image.FromFile(openFile.FileName);
+
+                    // Converte para byte[] para salvar no banco
+                    imagemIcon = ConverterImagemParaBytes(openFile.FileName);
+
+                    MessageBox.Show("Imagem carregada com sucesso!", "Sucesso",
+                                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Erro ao carregar imagem: " + ex.Message, "Erro",
+                                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        // Botão SELECIONAR CAPA (só para editora)
+        private void btnSelecionarCapa_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFile = new OpenFileDialog();
+            openFile.Filter = "Imagens|*.jpg;*.jpeg;*.png;*.bmp";
+            openFile.Title = "Selecione uma imagem de capa";
+
+            if (openFile.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    // Carrega a imagem no PictureBox
+                    picCapa.Image = Image.FromFile(openFile.FileName);
+
+                    // Converte para byte[] para salvar no banco
+                    imagemCapa = ConverterImagemParaBytes(openFile.FileName);
+
+                    MessageBox.Show("Imagem carregada com sucesso!", "Sucesso",
+                                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Erro ao carregar imagem: " + ex.Message, "Erro",
+                                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        // Método auxiliar para converter imagem em byte[]
+        private byte[] ConverterImagemParaBytes(string caminhoImagem)
+        {
+            using (FileStream fs = new FileStream(caminhoImagem, FileMode.Open, FileAccess.Read))
+            {
+                byte[] bytes = new byte[fs.Length];
+                fs.Read(bytes, 0, (int)fs.Length);
+                return bytes;
             }
         }
 
@@ -157,6 +232,7 @@ namespace SistemaLivraria.Forms
                     cmd.Parameters.AddWithValue("@Bairro", txtBairro.Text ?? "");
                     cmd.Parameters.AddWithValue("@Cidade", txtCidade.Text ?? "");
                     cmd.Parameters.AddWithValue("@Estado", txtEstado.Text ?? "");
+                    cmd.Parameters.AddWithValue("@Icon", (object)imagemIcon ?? DBNull.Value);
 
                     cmd.ExecuteNonQuery();
                     return true;
@@ -204,6 +280,8 @@ namespace SistemaLivraria.Forms
                     cmd.Parameters.AddWithValue("@Bairro", txtBairro.Text ?? "");
                     cmd.Parameters.AddWithValue("@Cidade", txtCidade.Text ?? "");
                     cmd.Parameters.AddWithValue("@Estado", txtEstado.Text ?? "");
+                    cmd.Parameters.AddWithValue("@Icon", (object)imagemIcon ?? DBNull.Value);
+                    cmd.Parameters.AddWithValue("@Capa", (object)imagemCapa ?? DBNull.Value);
 
                     cmd.ExecuteNonQuery();
                     return true;
@@ -306,6 +384,11 @@ namespace SistemaLivraria.Forms
             formLogin.DefinirTipo(tipoUsuario);
             formLogin.Show();
             this.Close();
+        }
+
+        private void FormCadastro_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -56,6 +56,14 @@
             this.txtEstado = new System.Windows.Forms.TextBox();
             this.btnSalvar = new System.Windows.Forms.Button();
             this.btnVoltar = new System.Windows.Forms.Button();
+            this.lblIcon = new System.Windows.Forms.Label();
+            this.lblCapa = new System.Windows.Forms.Label();
+            this.picIcon = new System.Windows.Forms.PictureBox();
+            this.picCapa = new System.Windows.Forms.PictureBox();
+            this.btnSelecionarIcon = new System.Windows.Forms.Button();
+            this.btnSelecionarCapa = new System.Windows.Forms.Button();
+            ((System.ComponentModel.ISupportInitialize)(this.picIcon)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picCapa)).BeginInit();
             this.SuspendLayout();
             // 
             // lblNome
@@ -278,6 +286,7 @@
             this.btnSalvar.TabIndex = 26;
             this.btnSalvar.Text = "Salvar";
             this.btnSalvar.UseVisualStyleBackColor = true;
+            this.btnSalvar.Click += new System.EventHandler(this.btnSalvar_Click);
             // 
             // btnVoltar
             // 
@@ -287,12 +296,83 @@
             this.btnVoltar.TabIndex = 27;
             this.btnVoltar.Text = "Voltar";
             this.btnVoltar.UseVisualStyleBackColor = true;
+            this.btnVoltar.Click += new System.EventHandler(this.btnVoltar_Click);
+            // 
+            // lblIcon
+            // 
+            this.lblIcon.AutoSize = true;
+            this.lblIcon.Location = new System.Drawing.Point(313, 16);
+            this.lblIcon.Name = "lblIcon";
+            this.lblIcon.Size = new System.Drawing.Size(89, 16);
+            this.lblIcon.TabIndex = 28;
+            this.lblIcon.Text = "Foto de Perfil:";
+            // 
+            // lblCapa
+            // 
+            this.lblCapa.AutoSize = true;
+            this.lblCapa.Location = new System.Drawing.Point(313, 198);
+            this.lblCapa.Name = "lblCapa";
+            this.lblCapa.Size = new System.Drawing.Size(114, 16);
+            this.lblCapa.TabIndex = 29;
+            this.lblCapa.Text = "Imagem de Capa:";
+            this.lblCapa.Visible = false;
+            // 
+            // picIcon
+            // 
+            this.picIcon.BackColor = System.Drawing.Color.LightGray;
+            this.picIcon.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.picIcon.Location = new System.Drawing.Point(316, 47);
+            this.picIcon.Name = "picIcon";
+            this.picIcon.Size = new System.Drawing.Size(100, 100);
+            this.picIcon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.picIcon.TabIndex = 30;
+            this.picIcon.TabStop = false;
+            // 
+            // picCapa
+            // 
+            this.picCapa.BackColor = System.Drawing.Color.LightGray;
+            this.picCapa.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.picCapa.Location = new System.Drawing.Point(316, 234);
+            this.picCapa.Name = "picCapa";
+            this.picCapa.Size = new System.Drawing.Size(300, 100);
+            this.picCapa.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.picCapa.TabIndex = 31;
+            this.picCapa.TabStop = false;
+            this.picCapa.Visible = false;
+            // 
+            // btnSelecionarIcon
+            // 
+            this.btnSelecionarIcon.Location = new System.Drawing.Point(423, 58);
+            this.btnSelecionarIcon.Name = "btnSelecionarIcon";
+            this.btnSelecionarIcon.Size = new System.Drawing.Size(101, 23);
+            this.btnSelecionarIcon.TabIndex = 32;
+            this.btnSelecionarIcon.Text = "Selecionar...";
+            this.btnSelecionarIcon.UseVisualStyleBackColor = true;
+            this.btnSelecionarIcon.Click += new System.EventHandler(this.btnSelecionarIcon_Click);
+            // 
+            // btnSelecionarCapa
+            // 
+            this.btnSelecionarCapa.Location = new System.Drawing.Point(622, 247);
+            this.btnSelecionarCapa.Name = "btnSelecionarCapa";
+            this.btnSelecionarCapa.Size = new System.Drawing.Size(104, 23);
+            this.btnSelecionarCapa.TabIndex = 33;
+            this.btnSelecionarCapa.Text = "Selecionar...";
+            this.btnSelecionarCapa.UseVisualStyleBackColor = true;
+            this.btnSelecionarCapa.Visible = false;
+            this.btnSelecionarCapa.Click += new System.EventHandler(this.btnSelecionarCapa_Click);
             // 
             // FormCadastro
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(1067, 554);
+            this.Controls.Add(this.btnSelecionarCapa);
+            this.Controls.Add(this.btnSelecionarIcon);
+            this.Controls.Add(this.picCapa);
+            this.Controls.Add(this.picIcon);
+            this.Controls.Add(this.lblCapa);
+            this.Controls.Add(this.lblIcon);
             this.Controls.Add(this.btnVoltar);
             this.Controls.Add(this.btnSalvar);
             this.Controls.Add(this.txtEstado);
@@ -324,6 +404,9 @@
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "FormCadastro";
             this.Text = "FormCadastro";
+            this.Load += new System.EventHandler(this.FormCadastro_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.picIcon)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picCapa)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -359,5 +442,11 @@
         private System.Windows.Forms.TextBox txtEstado;
         private System.Windows.Forms.Button btnSalvar;
         private System.Windows.Forms.Button btnVoltar;
+        private System.Windows.Forms.Label lblIcon;
+        private System.Windows.Forms.Label lblCapa;
+        private System.Windows.Forms.PictureBox picIcon;
+        private System.Windows.Forms.PictureBox picCapa;
+        private System.Windows.Forms.Button btnSelecionarIcon;
+        private System.Windows.Forms.Button btnSelecionarCapa;
     }
 }

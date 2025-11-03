@@ -52,11 +52,19 @@ namespace SistemaLivraria.Forms
             }
             else if (tipoUsuario == "Editora")
             {
-                if (FazerLoginEditora(txtEmail.Text, txtSenha.Text))
+                // ← MUDANÇA AQUI!
+                var dadosEditora = FazerLoginEditora(txtEmail.Text, txtSenha.Text);
+
+                if (dadosEditora.sucesso)
                 {
                     MessageBox.Show("Login realizado com sucesso!", "Sucesso",
                                     MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    // TODO: Abrir FormMenuEditora
+
+                    // Abre o menu da editora
+                    FormMenuEditora formMenu = new FormMenuEditora();
+                    formMenu.DefinirEditora(dadosEditora.id, dadosEditora.nome);
+                    formMenu.Show();
+                    this.Close();
                 }
                 else
                 {
@@ -88,25 +96,37 @@ namespace SistemaLivraria.Forms
             }
         }
 
-        private bool FazerLoginEditora(string email, string senha)
+        // ← MUDA ESTE MÉTODO TAMBÉM!
+        private (bool sucesso, int id, string nome) FazerLoginEditora(string email, string senha)
         {
             try
             {
                 using (SqlConnection conexao = Conexao.ObterConexao())
                 {
-                    string query = "SELECT COUNT(*) FROM EDITORA WHERE EMAIL = @Email AND SENHA = @Senha";
+                    string query = "SELECT ID_EDITORA, RAZAO_SOCIAL FROM EDITORA WHERE EMAIL = @Email AND SENHA = @Senha";
                     SqlCommand cmd = new SqlCommand(query, conexao);
                     cmd.Parameters.AddWithValue("@Email", email);
                     cmd.Parameters.AddWithValue("@Senha", senha);
 
-                    int count = (int)cmd.ExecuteScalar();
-                    return count > 0;
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            int id = reader.GetInt32(0);
+                            string nome = reader.GetString(1);
+                            return (true, id, nome);
+                        }
+                        else
+                        {
+                            return (false, 0, "");
+                        }
+                    }
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Erro ao fazer login: " + ex.Message);
-                return false;
+                return (false, 0, "");
             }
         }
 

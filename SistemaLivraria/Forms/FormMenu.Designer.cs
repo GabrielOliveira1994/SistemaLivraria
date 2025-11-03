@@ -31,6 +31,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.btnCliente = new System.Windows.Forms.Button();
             this.btnEditora = new System.Windows.Forms.Button();
+            this.btnVoltar2 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -65,11 +66,22 @@
             this.btnEditora.UseVisualStyleBackColor = true;
             this.btnEditora.Click += new System.EventHandler(this.btnEditora_Click);
             // 
+            // btnVoltar2
+            // 
+            this.btnVoltar2.Location = new System.Drawing.Point(120, 406);
+            this.btnVoltar2.Name = "btnVoltar2";
+            this.btnVoltar2.Size = new System.Drawing.Size(75, 23);
+            this.btnVoltar2.TabIndex = 3;
+            this.btnVoltar2.Text = "Voltar";
+            this.btnVoltar2.UseVisualStyleBackColor = true;
+            this.btnVoltar2.Click += new System.EventHandler(this.btnVoltar2_Click);
+            // 
             // FormMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1067, 554);
+            this.Controls.Add(this.btnVoltar2);
             this.Controls.Add(this.btnEditora);
             this.Controls.Add(this.btnCliente);
             this.Controls.Add(this.label1);
@@ -88,5 +100,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnCliente;
         private System.Windows.Forms.Button btnEditora;
+        private System.Windows.Forms.Button btnVoltar2;
     }
 }
