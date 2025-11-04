@@ -42,56 +42,67 @@
             // 
             // btnCadastrarLivro
             // 
-            this.btnCadastrarLivro.Location = new System.Drawing.Point(61, 343);
+            this.btnCadastrarLivro.Location = new System.Drawing.Point(46, 279);
+            this.btnCadastrarLivro.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnCadastrarLivro.Name = "btnCadastrarLivro";
-            this.btnCadastrarLivro.Size = new System.Drawing.Size(137, 23);
+            this.btnCadastrarLivro.Size = new System.Drawing.Size(103, 19);
             this.btnCadastrarLivro.TabIndex = 0;
             this.btnCadastrarLivro.Text = "📚 Cadastrar Livro";
             this.btnCadastrarLivro.UseVisualStyleBackColor = true;
+            this.btnCadastrarLivro.Click += new System.EventHandler(this.btnCadastrarLivro_Click);
             // 
             // btnMeusLivros
             // 
-            this.btnMeusLivros.Location = new System.Drawing.Point(204, 343);
+            this.btnMeusLivros.Location = new System.Drawing.Point(153, 279);
+            this.btnMeusLivros.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnMeusLivros.Name = "btnMeusLivros";
-            this.btnMeusLivros.Size = new System.Drawing.Size(111, 23);
+            this.btnMeusLivros.Size = new System.Drawing.Size(83, 19);
             this.btnMeusLivros.TabIndex = 1;
             this.btnMeusLivros.Text = "📖 Meus Livros";
             this.btnMeusLivros.UseVisualStyleBackColor = true;
+            this.btnMeusLivros.Click += new System.EventHandler(this.btnMeusLivros_Click);
             // 
             // btnMinhasVendas
             // 
-            this.btnMinhasVendas.Location = new System.Drawing.Point(321, 343);
+            this.btnMinhasVendas.Location = new System.Drawing.Point(241, 279);
+            this.btnMinhasVendas.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnMinhasVendas.Name = "btnMinhasVendas";
-            this.btnMinhasVendas.Size = new System.Drawing.Size(124, 23);
+            this.btnMinhasVendas.Size = new System.Drawing.Size(93, 19);
             this.btnMinhasVendas.TabIndex = 2;
             this.btnMinhasVendas.Text = "📊 Minhas Vendas";
             this.btnMinhasVendas.UseVisualStyleBackColor = true;
+            this.btnMinhasVendas.Click += new System.EventHandler(this.btnMinhasVendas_Click);
             // 
             // btnInicio
             // 
-            this.btnInicio.Location = new System.Drawing.Point(451, 343);
+            this.btnInicio.Location = new System.Drawing.Point(338, 279);
+            this.btnInicio.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnInicio.Name = "btnInicio";
-            this.btnInicio.Size = new System.Drawing.Size(125, 23);
+            this.btnInicio.Size = new System.Drawing.Size(94, 19);
             this.btnInicio.TabIndex = 3;
             this.btnInicio.Text = "🏠 Voltar ao Início";
             this.btnInicio.UseVisualStyleBackColor = true;
+            this.btnInicio.Click += new System.EventHandler(this.btnInicio_Click);
             // 
             // btnSair
             // 
-            this.btnSair.Location = new System.Drawing.Point(582, 343);
+            this.btnSair.Location = new System.Drawing.Point(436, 279);
+            this.btnSair.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnSair.Name = "btnSair";
-            this.btnSair.Size = new System.Drawing.Size(75, 23);
+            this.btnSair.Size = new System.Drawing.Size(56, 19);
             this.btnSair.TabIndex = 4;
             this.btnSair.Text = "🚪 Sair";
             this.btnSair.UseVisualStyleBackColor = true;
+            this.btnSair.Click += new System.EventHandler(this.btnSair_Click);
             // 
             // picCapa
             // 
             this.picCapa.BackColor = System.Drawing.Color.LightGray;
             this.picCapa.Dock = System.Windows.Forms.DockStyle.Top;
             this.picCapa.Location = new System.Drawing.Point(0, 0);
+            this.picCapa.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.picCapa.Name = "picCapa";
-            this.picCapa.Size = new System.Drawing.Size(800, 71);
+            this.picCapa.Size = new System.Drawing.Size(600, 58);
             this.picCapa.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.picCapa.TabIndex = 5;
             this.picCapa.TabStop = false;
@@ -100,9 +111,10 @@
             // 
             this.picIcon.BackColor = System.Drawing.Color.White;
             this.picIcon.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.picIcon.Location = new System.Drawing.Point(284, 31);
+            this.picIcon.Location = new System.Drawing.Point(213, 25);
+            this.picIcon.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.picIcon.Name = "picIcon";
-            this.picIcon.Size = new System.Drawing.Size(100, 100);
+            this.picIcon.Size = new System.Drawing.Size(76, 82);
             this.picIcon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.picIcon.TabIndex = 6;
             this.picIcon.TabStop = false;
@@ -110,17 +122,18 @@
             // lblBoasVindas
             // 
             this.lblBoasVindas.AutoSize = true;
-            this.lblBoasVindas.Location = new System.Drawing.Point(403, 88);
+            this.lblBoasVindas.Location = new System.Drawing.Point(302, 72);
+            this.lblBoasVindas.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblBoasVindas.Name = "lblBoasVindas";
-            this.lblBoasVindas.Size = new System.Drawing.Size(133, 16);
+            this.lblBoasVindas.Size = new System.Drawing.Size(107, 13);
             this.lblBoasVindas.TabIndex = 7;
             this.lblBoasVindas.Text = "\"Bem-vindo, [Nome]\"";
             // 
             // FormMenuEditora
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(600, 366);
             this.Controls.Add(this.lblBoasVindas);
             this.Controls.Add(this.picIcon);
             this.Controls.Add(this.picCapa);
@@ -129,8 +142,10 @@
             this.Controls.Add(this.btnMinhasVendas);
             this.Controls.Add(this.btnMeusLivros);
             this.Controls.Add(this.btnCadastrarLivro);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "FormMenuEditora";
             this.Text = "FormMenuEditora";
+            this.Load += new System.EventHandler(this.FormMenuEditora_Load);
             ((System.ComponentModel.ISupportInitialize)(this.picCapa)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picIcon)).EndInit();
             this.ResumeLayout(false);

@@ -21,7 +21,7 @@ namespace SistemaLivraria.Forms
             tipoUsuario = tipo;
             this.Text = $"Login - {tipo}";
             // Se você tiver uma label lblTipoUsuario no form:
-            // lblTipoUsuario.Text = $"Login - {tipo}";
+            lblTipoUsuario.Text = $"Login - {tipo}";
         }
 
         private void btnEntrar_Click(object sender, EventArgs e)
@@ -64,7 +64,7 @@ namespace SistemaLivraria.Forms
                     FormMenuEditora formMenu = new FormMenuEditora();
                     formMenu.DefinirEditora(dadosEditora.id, dadosEditora.nome);
                     formMenu.Show();
-                    this.Close();
+                    this.Hide();
                 }
                 else
                 {
@@ -139,14 +139,21 @@ namespace SistemaLivraria.Forms
             this.Hide();
         }
 
-        private void FormLogin_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            Application.Exit();
-        }
+       // private void FormLogin_FormClosing(object sender, FormClosingEventArgs e)
+       // {
+       //     Application.Exit();
+       // }
 
         private void FormLogin_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void btnVoltar3_Click(object sender, EventArgs e)
+        {
+            FormMenu formLogin = new FormMenu();
+            formLogin.Show();
+            this.Close();
         }
     }
 }

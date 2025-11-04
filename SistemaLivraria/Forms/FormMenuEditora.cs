@@ -160,5 +160,10 @@ namespace SistemaLivraria.Forms
             FormHome formHome = new FormHome();
             formHome.Show();
         }
+
+        private void FormMenuEditora_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

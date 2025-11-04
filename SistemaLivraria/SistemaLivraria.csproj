@@ -53,6 +53,12 @@
     <Compile Include="Forms\FormCadastro.Designer.cs">
       <DependentUpon>FormCadastro.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\FormCadastroLivro.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormCadastroLivro.Designer.cs">
+      <DependentUpon>FormCadastroLivro.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\FormHome.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -83,12 +89,21 @@
     <Compile Include="Forms\FormMenuEditora.Designer.cs">
       <DependentUpon>FormMenuEditora.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\FormMeusLivros.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormMeusLivros.Designer.cs">
+      <DependentUpon>FormMeusLivros.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\Cliente.cs" />
     <Compile Include="Models\Editora.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Forms\FormCadastro.resx">
       <DependentUpon>FormCadastro.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormCadastroLivro.resx">
+      <DependentUpon>FormCadastroLivro.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormHome.resx">
       <DependentUpon>FormHome.cs</DependentUpon>
@@ -101,6 +116,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormMenuEditora.resx">
       <DependentUpon>FormMenuEditora.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormMeusLivros.resx">
+      <DependentUpon>FormMeusLivros.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

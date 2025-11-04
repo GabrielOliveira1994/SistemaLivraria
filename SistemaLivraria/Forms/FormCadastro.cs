@@ -214,10 +214,10 @@ namespace SistemaLivraria.Forms
                 {
                     string query = @"INSERT INTO CLIENTE 
                                     (NOME, CPF, EMAIL, SENHA, TELEFONE, CEP, LOGRADOURO, 
-                                     NUMERO, COMPLEMENTO, BAIRRO, CIDADE, ESTADO) 
+                                     NUMERO, COMPLEMENTO, BAIRRO, CIDADE, ESTADO, ICON) 
                                     VALUES 
                                     (@Nome, @CPF, @Email, @Senha, @Telefone, @CEP, @Logradouro, 
-                                     @Numero, @Complemento, @Bairro, @Cidade, @Estado)";
+                                     @Numero, @Complemento, @Bairro, @Cidade, @Estado, @Icon)";
 
                     SqlCommand cmd = new SqlCommand(query, conexao);
                     cmd.Parameters.AddWithValue("@Nome", txtNome.Text);
@@ -262,10 +262,10 @@ namespace SistemaLivraria.Forms
                 {
                     string query = @"INSERT INTO EDITORA 
                                     (RAZAO_SOCIAL, CNPJ, EMAIL, SENHA, TELEFONE, CEP, LOGRADOURO, 
-                                     NUMERO, COMPLEMENTO, BAIRRO, CIDADE, ESTADO) 
+                                     NUMERO, COMPLEMENTO, BAIRRO, CIDADE, ESTADO, ICON, CAPA) 
                                     VALUES 
                                     (@RazaoSocial, @CNPJ, @Email, @Senha, @Telefone, @CEP, @Logradouro, 
-                                     @Numero, @Complemento, @Bairro, @Cidade, @Estado)";
+                                     @Numero, @Complemento, @Bairro, @Cidade, @Estado, @Icon, @Capa)";
 
                     SqlCommand cmd = new SqlCommand(query, conexao);
                     cmd.Parameters.AddWithValue("@RazaoSocial", txtNome.Text);

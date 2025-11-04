@@ -36,7 +36,9 @@ namespace SistemaLivraria.Forms
 
         private void btnVoltar2_Click(object sender, EventArgs e)
         {
-
+            FormHome formLogin = new FormHome();
+            formLogin.Show();
+            this.Close();
         }
     }
 }
