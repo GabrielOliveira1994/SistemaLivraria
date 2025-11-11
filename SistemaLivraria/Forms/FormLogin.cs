@@ -38,18 +38,25 @@ namespace SistemaLivraria.Forms
             // Tentar fazer login
             if (tipoUsuario == "Cliente")
             {
-                if (FazerLoginCliente(txtEmail.Text, txtSenha.Text))
+                var dadosCliente = FazerLoginCliente(txtEmail.Text, txtSenha.Text);
+
+                if (dadosCliente.sucesso)
                 {
                     MessageBox.Show("Login realizado com sucesso!", "Sucesso",
                                     MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    // TODO: Abrir FormMenuCliente
+
+                    // Abre o menu do cliente
+                    FormMenuCliente formMenu = new FormMenuCliente();
+                    formMenu.DefinirCliente(dadosCliente.id, dadosCliente.nome);
+                    formMenu.Show();
+                    this.Close();
                 }
                 else
                 {
                     MessageBox.Show("Email ou senha incorretos!", "Erro",
                                     MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-            }
+        }
             else if (tipoUsuario == "Editora")
             {
                 // ← MUDANÇA AQUI!
@@ -74,25 +81,36 @@ namespace SistemaLivraria.Forms
             }
         }
 
-        private bool FazerLoginCliente(string email, string senha)
+        private (bool sucesso, int id, string nome) FazerLoginCliente(string email, string senha)
         {
             try
             {
                 using (SqlConnection conexao = Conexao.ObterConexao())
                 {
-                    string query = "SELECT COUNT(*) FROM CLIENTE WHERE EMAIL = @Email AND SENHA = @Senha";
+                    string query = "SELECT IDCLIENTE, NOME FROM CLIENTE WHERE EMAIL = @Email AND SENHA = @Senha";
                     SqlCommand cmd = new SqlCommand(query, conexao);
                     cmd.Parameters.AddWithValue("@Email", email);
                     cmd.Parameters.AddWithValue("@Senha", senha);
 
-                    int count = (int)cmd.ExecuteScalar();
-                    return count > 0;
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            int id = reader.GetInt32(0);
+                            string nome = reader.GetString(1);
+                            return (true, id, nome);
+                        }
+                        else
+                        {
+                            return (false, 0, "");
+                        }
+                    }
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Erro ao fazer login: " + ex.Message);
-                return false;
+                return (false, 0, "");
             }
         }
 

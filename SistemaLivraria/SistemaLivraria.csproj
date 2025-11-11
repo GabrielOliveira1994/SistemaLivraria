@@ -59,6 +59,12 @@
     <Compile Include="Forms\FormCadastroLivro.Designer.cs">
       <DependentUpon>FormCadastroLivro.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\FormDetalhesLivro.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormDetalhesLivro.Designer.cs">
+      <DependentUpon>FormDetalhesLivro.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\FormHome.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -105,6 +111,9 @@
     <EmbeddedResource Include="Forms\FormCadastroLivro.resx">
       <DependentUpon>FormCadastroLivro.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormDetalhesLivro.resx">
+      <DependentUpon>FormDetalhesLivro.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormHome.resx">
       <DependentUpon>FormHome.cs</DependentUpon>
     </EmbeddedResource>
@@ -113,6 +122,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormMenu.resx">
       <DependentUpon>FormMenu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormMenuCliente.resx">
+      <DependentUpon>FormMenuCliente.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormMenuEditora.resx">
       <DependentUpon>FormMenuEditora.cs</DependentUpon>

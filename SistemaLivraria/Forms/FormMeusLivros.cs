@@ -13,7 +13,21 @@ namespace SistemaLivraria.Forms
         public FormMeusLivros()
         {
             InitializeComponent();
+            ConfigurarLayout();
             ConfigurarDataGridView();
+        }
+        private void ConfigurarLayout()
+        {
+            // Configurar Panel de Botões
+            panelBotoes.Dock = DockStyle.Top;
+            panelBotoes.Height = 60;
+
+            // Configurar DataGridView
+            dgvLivros.Dock = DockStyle.Fill;  // Preenche o resto da tela
+            dgvLivros.BringToFront();         // Traz para frente
+
+            // Garantir que o panel está atrás
+            panelBotoes.SendToBack();
         }
 
         // Método para definir qual editora está vendo os livros
