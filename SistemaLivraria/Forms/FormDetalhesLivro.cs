@@ -5,6 +5,7 @@ using System.IO;
 using System.Text;
 using System.Windows.Forms;
 using SistemaLivraria.Database;
+using SistemaLivraria.Models;
 
 namespace SistemaLivraria.Forms
 {
@@ -12,6 +13,10 @@ namespace SistemaLivraria.Forms
     {
         private int livroId;
         private int? clienteIdLogado;
+        private decimal precoLivro;
+        private int editoraId;
+        private string nomeEditora;
+        private byte[] capaBytes;
 
         public FormDetalhesLivro()
         {
@@ -192,14 +197,35 @@ namespace SistemaLivraria.Forms
                 return;
             }
 
-            // Por enquanto, só mostra mensagem (FASE 6 vai implementar)
-            MessageBox.Show(
-                "Livro será adicionado ao carrinho!\n(Funcionalidade completa na FASE 6)",
-                "Em breve...",
-                MessageBoxButtons.OK,
-                MessageBoxIcon.Information);
+            try
+            {
+                // Criar item do carrinho
+                ItemCarrinho item = new ItemCarrinho(
+                    livroId,
+                    lblTitulo.Text,
+                    precoLivro,
+                    1, // Quantidade = 1 por padrão
+                    editoraId,
+                    nomeEditora,
+                    capaBytes
+                );
 
-            // TODO: FASE 6 - Adicionar ao carrinho no banco de dados
+                // Adicionar ao carrinho
+                GerenciadorCarrinho.AdicionarItem(item);
+
+                // Mostrar confirmação
+                MessageBox.Show(
+                    $"'{lblTitulo.Text}' adicionado ao carrinho!\n\nTotal de itens: {GerenciadorCarrinho.ContarItens()}",
+                    "Sucesso",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro ao adicionar ao carrinho: " + ex.Message, "Erro",
+                                MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         // Botão VOLTAR

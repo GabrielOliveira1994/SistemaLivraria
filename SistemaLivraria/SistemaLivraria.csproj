@@ -59,6 +59,12 @@
     <Compile Include="Forms\FormCadastroLivro.Designer.cs">
       <DependentUpon>FormCadastroLivro.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\FormCarrinho.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormCarrinho.Designer.cs">
+      <DependentUpon>FormCarrinho.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\FormDetalhesLivro.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -103,6 +109,8 @@
     </Compile>
     <Compile Include="Models\Cliente.cs" />
     <Compile Include="Models\Editora.cs" />
+    <Compile Include="Models\GerenciadorCarrinho.cs" />
+    <Compile Include="Models\ItemCarrinho.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Forms\FormCadastro.resx">
@@ -110,6 +118,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormCadastroLivro.resx">
       <DependentUpon>FormCadastroLivro.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormCarrinho.resx">
+      <DependentUpon>FormCarrinho.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormDetalhesLivro.resx">
       <DependentUpon>FormDetalhesLivro.cs</DependentUpon>

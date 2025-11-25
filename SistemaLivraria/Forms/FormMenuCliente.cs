@@ -101,10 +101,9 @@ namespace SistemaLivraria.Forms
         // Botão CARRINHO
         private void btnCarrinho_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Carrinho será implementado na FASE 6!",
-                            "Em breve...",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Information);
+            FormCarrinho formCarrinho = new FormCarrinho();
+            formCarrinho.DefinirCliente(clienteId, nomeCliente);
+            formCarrinho.ShowDialog();
         }
 
         // Botão PEDIDOS

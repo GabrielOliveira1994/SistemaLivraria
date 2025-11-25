@@ -286,21 +286,26 @@ namespace SistemaLivraria.Forms
         {
             if (!clienteIdLogado.HasValue)
             {
-                MessageBox.Show("Você precisa fazer login para acessar o carrinho!",
-                                "Atenção",
-                                MessageBoxButtons.OK,
-                                MessageBoxIcon.Information);
+                DialogResult resultado = MessageBox.Show(
+                    "Você precisa fazer login para adicionar ao carrinho!\n\nDeseja fazer login agora?",
+                    "Login Necessário",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Information);
 
-                FormMenu formMenu = new FormMenu();
-                formMenu.Show();
-                this.Hide();
+                if (resultado == DialogResult.Yes)
+                {
+                    FormMenu formMenu = new FormMenu();
+                    formMenu.Show();
+                    this.Hide();
+                }
+                return;
             }
             else
             {
-                MessageBox.Show("Carrinho será implementado na FASE 6!",
-                                "Em breve...",
-                                MessageBoxButtons.OK,
-                                MessageBoxIcon.Information);
+                // Abre o carrinho!
+                FormCarrinho formCarrinho = new FormCarrinho();
+                formCarrinho.DefinirCliente(clienteIdLogado.Value, nomeCliente);
+                formCarrinho.ShowDialog();
             }
         }
 
