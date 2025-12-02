@@ -71,6 +71,12 @@
     <Compile Include="Forms\FormDetalhesLivro.Designer.cs">
       <DependentUpon>FormDetalhesLivro.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\FormFinalizarPedido.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormFinalizarPedido.Designer.cs">
+      <DependentUpon>FormFinalizarPedido.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\FormHome.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -124,6 +130,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormDetalhesLivro.resx">
       <DependentUpon>FormDetalhesLivro.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormFinalizarPedido.resx">
+      <DependentUpon>FormFinalizarPedido.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormHome.resx">
       <DependentUpon>FormHome.cs</DependentUpon>

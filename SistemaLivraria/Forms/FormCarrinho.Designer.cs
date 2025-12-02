@@ -111,6 +111,7 @@
             this.Controls.Add(this.panelRodape);
             this.Controls.Add(this.dgvCarrinho);
             this.Name = "FormCarrinho";
+            this.Text = "Carrinho";
             ((System.ComponentModel.ISupportInitialize)(this.dgvCarrinho)).EndInit();
             this.panelRodape.ResumeLayout(false);
             this.panelRodape.PerformLayout();

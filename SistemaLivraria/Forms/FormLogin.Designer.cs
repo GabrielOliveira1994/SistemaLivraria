@@ -96,9 +96,9 @@
             this.lblTipoUsuario.AutoSize = true;
             this.lblTipoUsuario.Location = new System.Drawing.Point(165, 296);
             this.lblTipoUsuario.Name = "lblTipoUsuario";
-            this.lblTipoUsuario.Size = new System.Drawing.Size(33, 13);
+            this.lblTipoUsuario.Size = new System.Drawing.Size(64, 13);
             this.lblTipoUsuario.TabIndex = 6;
-            this.lblTipoUsuario.Text = "Label";
+            this.lblTipoUsuario.Text = "TipoUsuario";
             // 
             // btnVoltar3
             // 

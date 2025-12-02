@@ -185,7 +185,6 @@
             this.Controls.Add(this.picCapa);
             this.Name = "FormDetalhesLivro";
             this.Text = "FormDetalhesLivro";
-            this.Load += new System.EventHandler(this.FormDetalhesLivro_Load);
             ((System.ComponentModel.ISupportInitialize)(this.picCapa)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

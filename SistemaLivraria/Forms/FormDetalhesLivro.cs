@@ -5,18 +5,20 @@ using System.IO;
 using System.Text;
 using System.Windows.Forms;
 using SistemaLivraria.Database;
-using SistemaLivraria.Models;
+using SistemaLivraria.Models; // Importar Models!
 
 namespace SistemaLivraria.Forms
 {
     public partial class FormDetalhesLivro : Form
     {
+        // ✅ VARIÁVEIS DA CLASSE - DECLARADAS NO TOPO
         private int livroId;
         private int? clienteIdLogado;
-        private decimal precoLivro;
-        private int editoraId;
-        private string nomeEditora;
-        private byte[] capaBytes;
+        private decimal precoLivro = 0;
+        private int editoraId = 0;
+        private string nomeEditora = "";
+        private byte[] capaBytes = null;
+        private string tituloLivro = "";
 
         public FormDetalhesLivro()
         {
@@ -33,14 +35,17 @@ namespace SistemaLivraria.Forms
             picCapa.BackColor = Color.LightGray;
             picCapa.SizeMode = PictureBoxSizeMode.Zoom;
 
-            // Configurar TextBox da sinopse
+            // Configurar TextBox da sinopse - NÃO INTERAGÍVEL
             txtSinopse.Multiline = true;
             txtSinopse.ScrollBars = ScrollBars.Vertical;
             txtSinopse.ReadOnly = true;
             txtSinopse.BackColor = Color.White;
+            txtSinopse.Cursor = Cursors.Arrow; // Mudar cursor
+            txtSinopse.TabStop = false; // Não permitir focar com TAB
+            // Remover foco ao clicar
+            txtSinopse.GotFocus += (s, e) => { this.ActiveControl = null; };
         }
 
-        // Método público para carregar os dados do livro
         public void CarregarLivro(int idLivro, int? clienteId = null)
         {
             livroId = idLivro;
@@ -50,7 +55,6 @@ namespace SistemaLivraria.Forms
             {
                 using (SqlConnection conexao = Conexao.ObterConexao())
                 {
-                    // Query completa com JOIN
                     string query = @"SELECT 
                                         L.TITULO,
                                         L.ISBN,
@@ -76,10 +80,16 @@ namespace SistemaLivraria.Forms
                     {
                         if (reader.Read())
                         {
-                            // Preencher campos
-                            lblTitulo.Text = reader["TITULO"].ToString();
+                            // ✅ GUARDAR nas variáveis da classe
+                            tituloLivro = reader["TITULO"].ToString();
+                            nomeEditora = reader["RAZAO_SOCIAL"].ToString();
+                            editoraId = reader.GetInt32(11); // Índice 11 = ID_EDITORA
+                            precoLivro = reader.GetDecimal(6); // Índice 6 = PRECO
+
+                            // Preencher labels
+                            lblTitulo.Text = tituloLivro;
                             lblAutores.Text = "Autor(es): " + CarregarAutores(idLivro);
-                            lblEditora.Text = "Editora: " + reader["RAZAO_SOCIAL"].ToString();
+                            lblEditora.Text = "Editora: " + nomeEditora;
                             lblCategoria.Text = "Categoria: " + reader["NOME_CATEGORIA"].ToString();
 
                             lblISBN.Text = "ISBN: " + (reader["ISBN"] != DBNull.Value ? reader["ISBN"].ToString() : "Não informado");
@@ -91,21 +101,24 @@ namespace SistemaLivraria.Forms
 
                             txtSinopse.Text = reader["SINOPSE"] != DBNull.Value ? reader["SINOPSE"].ToString() : "Sem sinopse disponível.";
 
-                            decimal preco = reader.GetDecimal(6);
-                            lblPreco.Text = $"R$ {preco:F2}";
+                            lblPreco.Text = $"R$ {precoLivro:F2}";
 
                             int estoque = reader.GetInt32(7);
                             lblEstoque.Text = $"Estoque: {estoque} unidade(s) disponível(eis)";
                             lblEstoque.ForeColor = estoque > 0 ? Color.Green : Color.Red;
 
-                            // Carregar capa
+                            // ✅ Carregar e GUARDAR capa
                             if (reader["CAPA"] != DBNull.Value)
                             {
-                                byte[] capaBytes = (byte[])reader["CAPA"];
+                                capaBytes = (byte[])reader["CAPA"];
                                 picCapa.Image = ConverterBytesParaImagem(capaBytes);
                             }
+                            else
+                            {
+                                capaBytes = null;
+                                picCapa.Image = null; // Limpar imagem se não houver
+                            }
 
-                            // Desabilitar botão se não tiver estoque
                             btnAdicionarCarrinho.Enabled = estoque > 0;
                             if (estoque == 0)
                             {
@@ -129,7 +142,6 @@ namespace SistemaLivraria.Forms
             }
         }
 
-        // Carregar autores do livro (da tabela LIVRO_AUTOR)
         private string CarregarAutores(int idLivro)
         {
             try
@@ -166,20 +178,39 @@ namespace SistemaLivraria.Forms
             }
         }
 
+        // Versão segura para evitar erro GDI+ (Generic error occurred in GDI+)
         private Image ConverterBytesParaImagem(byte[] bytes)
         {
-            using (MemoryStream ms = new MemoryStream(bytes))
+            try
             {
-                return Image.FromStream(ms);
+                if (bytes == null || bytes.Length == 0)
+                    return null;
+
+                using (MemoryStream ms = new MemoryStream(bytes))
+                {
+                    // Criar imagem a partir do stream
+                    Image imagemOriginal = Image.FromStream(ms);
+
+                    // Criar uma CÓPIA da imagem. Isso libera o MemoryStream.
+                    Image imagemCopia = new Bitmap(imagemOriginal);
+
+                    // Descartar a imagem original (que estava presa ao stream)
+                    imagemOriginal.Dispose();
+
+                    return imagemCopia;
+                }
+            }
+            catch (Exception ex)
+            {
+                // Logar o erro se necessário, mas retornar null
+                Console.WriteLine("Erro ao converter bytes para imagem: " + ex.Message);
+                return null;
             }
         }
 
-        // ===== EVENTOS DOS BOTÕES =====
-
-        // Botão ADICIONAR AO CARRINHO
+        // ===== BOTÃO ADICIONAR AO CARRINHO =====
         private void btnAdicionarCarrinho_Click(object sender, EventArgs e)
         {
-            // Verificar se o cliente está logado
             if (!clienteIdLogado.HasValue)
             {
                 DialogResult resultado = MessageBox.Show(
@@ -190,6 +221,8 @@ namespace SistemaLivraria.Forms
 
                 if (resultado == DialogResult.Yes)
                 {
+                    // ACHO que você quer fechar este e abrir o FormMenu
+                    // Se o FormMenu for seu formulário de Login, isso está ok.
                     FormMenu formMenu = new FormMenu();
                     formMenu.Show();
                     this.Close();
@@ -199,12 +232,28 @@ namespace SistemaLivraria.Forms
 
             try
             {
-                // Criar item do carrinho
+                // ✅ Verificar se os valores da classe estão corretos
+                if (precoLivro == 0) // Uma verificação simples
+                {
+                    MessageBox.Show("Erro: Preço do livro não foi carregado corretamente! Tente novamente.", "Erro",
+                                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                if (string.IsNullOrEmpty(tituloLivro))
+                {
+                    MessageBox.Show("Erro: Título do livro não foi carregado. Tente novamente.", "Erro",
+                                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+
+                // Criar item do carrinho USANDO AS VARIÁVEIS DA CLASSE
                 ItemCarrinho item = new ItemCarrinho(
                     livroId,
-                    lblTitulo.Text,
+                    tituloLivro,
                     precoLivro,
-                    1, // Quantidade = 1 por padrão
+                    1,
                     editoraId,
                     nomeEditora,
                     capaBytes
@@ -213,9 +262,8 @@ namespace SistemaLivraria.Forms
                 // Adicionar ao carrinho
                 GerenciadorCarrinho.AdicionarItem(item);
 
-                // Mostrar confirmação
                 MessageBox.Show(
-                    $"'{lblTitulo.Text}' adicionado ao carrinho!\n\nTotal de itens: {GerenciadorCarrinho.ContarItens()}",
+                    $"'{tituloLivro}' adicionado ao carrinho!\n\nTotal de itens: {GerenciadorCarrinho.ContarItens()}",
                     "Sucesso",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Information);
@@ -228,20 +276,9 @@ namespace SistemaLivraria.Forms
             }
         }
 
-        // Botão VOLTAR
         private void btnVoltar_Click(object sender, EventArgs e)
         {
             this.Close();
-        }
-
-        private void FormDetalhesLivro_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            // Não precisa fazer nada especial, só fecha a janela
-        }
-
-        private void FormDetalhesLivro_Load(object sender, EventArgs e)
-        {
-
         }
     }
 }

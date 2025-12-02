@@ -284,9 +284,9 @@ namespace SistemaLivraria.Forms
             }
 
             // Abre tela de finalização (Etapa 6.4)
-            //FormFinalizarPedido formFinalizar = new FormFinalizarPedido();
-            //formFinalizar.DefinirCliente(clienteIdLogado.Value, nomeCliente);
-            //formFinalizar.ShowDialog();
+            FormFinalizarPedido formFinalizar = new FormFinalizarPedido();
+            formFinalizar.DefinirCliente(clienteIdLogado.Value, nomeCliente);
+            formFinalizar.ShowDialog();
 
             // Recarrega carrinho (caso tenha finalizado)
             CarregarCarrinho();
