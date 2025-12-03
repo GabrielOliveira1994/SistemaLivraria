@@ -38,17 +38,19 @@
             // lblResumoItens
             // 
             this.lblResumoItens.AutoSize = true;
-            this.lblResumoItens.Location = new System.Drawing.Point(36, 22);
+            this.lblResumoItens.Location = new System.Drawing.Point(48, 27);
+            this.lblResumoItens.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblResumoItens.Name = "lblResumoItens";
-            this.lblResumoItens.Size = new System.Drawing.Size(69, 13);
+            this.lblResumoItens.Size = new System.Drawing.Size(86, 16);
             this.lblResumoItens.TabIndex = 0;
             this.lblResumoItens.Text = "ResumoItens";
             // 
             // btnConfirmarPedido
             // 
-            this.btnConfirmarPedido.Location = new System.Drawing.Point(385, 12);
+            this.btnConfirmarPedido.Location = new System.Drawing.Point(513, 15);
+            this.btnConfirmarPedido.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnConfirmarPedido.Name = "btnConfirmarPedido";
-            this.btnConfirmarPedido.Size = new System.Drawing.Size(121, 23);
+            this.btnConfirmarPedido.Size = new System.Drawing.Size(161, 28);
             this.btnConfirmarPedido.TabIndex = 1;
             this.btnConfirmarPedido.Text = "Confirmar Pedido";
             this.btnConfirmarPedido.UseVisualStyleBackColor = true;
@@ -56,9 +58,10 @@
             // 
             // btnCancelar
             // 
-            this.btnCancelar.Location = new System.Drawing.Point(385, 51);
+            this.btnCancelar.Location = new System.Drawing.Point(513, 63);
+            this.btnCancelar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnCancelar.Name = "btnCancelar";
-            this.btnCancelar.Size = new System.Drawing.Size(75, 23);
+            this.btnCancelar.Size = new System.Drawing.Size(100, 28);
             this.btnCancelar.TabIndex = 2;
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = true;
@@ -67,31 +70,34 @@
             // lblTotalPedido
             // 
             this.lblTotalPedido.AutoSize = true;
-            this.lblTotalPedido.Location = new System.Drawing.Point(36, 51);
+            this.lblTotalPedido.Location = new System.Drawing.Point(48, 63);
+            this.lblTotalPedido.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblTotalPedido.Name = "lblTotalPedido";
-            this.lblTotalPedido.Size = new System.Drawing.Size(64, 13);
+            this.lblTotalPedido.Size = new System.Drawing.Size(82, 16);
             this.lblTotalPedido.TabIndex = 3;
             this.lblTotalPedido.Text = "TotalPedido";
             // 
             // lblEnderecoCompleto
             // 
             this.lblEnderecoCompleto.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.lblEnderecoCompleto.Location = new System.Drawing.Point(36, 83);
+            this.lblEnderecoCompleto.Location = new System.Drawing.Point(48, 102);
+            this.lblEnderecoCompleto.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblEnderecoCompleto.Name = "lblEnderecoCompleto";
-            this.lblEnderecoCompleto.Size = new System.Drawing.Size(220, 196);
+            this.lblEnderecoCompleto.Size = new System.Drawing.Size(293, 241);
             this.lblEnderecoCompleto.TabIndex = 4;
-            this.lblEnderecoCompleto.Text = "label3";
+            this.lblEnderecoCompleto.Text = "Endereço";
             // 
             // FormFinalizarPedido
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(1067, 554);
             this.Controls.Add(this.lblEnderecoCompleto);
             this.Controls.Add(this.lblTotalPedido);
             this.Controls.Add(this.btnCancelar);
             this.Controls.Add(this.btnConfirmarPedido);
             this.Controls.Add(this.lblResumoItens);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "FormFinalizarPedido";
             this.Text = "FormFinalizarPedido";
             this.ResumeLayout(false);

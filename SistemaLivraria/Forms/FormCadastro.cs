@@ -25,21 +25,18 @@ namespace SistemaLivraria.Forms
             tipoUsuario = tipo;
             this.Text = $"Cadastro - {tipo}";
 
-            // Mostrar/Esconder campos específicos
             if (tipo == "Cliente")
             {
                 lblNome.Text = "Nome Completo:";
                 lblDocumento.Text = "CPF:";
                 txtDocumento.MaxLength = 14; // 000.000.000-00
-
-                // Ocultar campos de editora (se existirem)
             }
             else if (tipo == "Editora")
             {
                 lblNome.Text = "Razão Social:";
                 lblDocumento.Text = "CNPJ:";
                 txtDocumento.MaxLength = 18; // 00.000.000/0000-00
-                                             // Mostrar campos de capa
+                                             
                 lblCapa.Visible = true;
                 picCapa.Visible = true;
                 btnSelecionarCapa.Visible = true;

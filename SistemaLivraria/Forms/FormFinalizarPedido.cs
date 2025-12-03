@@ -168,10 +168,10 @@ namespace SistemaLivraria.Forms
                         SqlCommand cmdItem = new SqlCommand(queryItem, conexao, transaction);
                         cmdItem.Parameters.AddWithValue("@IdPedido", novoPedidoId);
                         cmdItem.Parameters.AddWithValue("@IdLivro", item.LivroId);
-                        cmdItem.Parameters.AddWithValue("@IdEditora", item.EditoraId);     // <-- ADICIONADO
+                        cmdItem.Parameters.AddWithValue("@IdEditora", item.EditoraId);
                         cmdItem.Parameters.AddWithValue("@Qtd", item.Quantidade);
                         cmdItem.Parameters.AddWithValue("@Preco", item.PrecoUnitario);
-                        cmdItem.Parameters.AddWithValue("@Subtotal", item.Subtotal); // <-- ADICIONADO
+                        cmdItem.Parameters.AddWithValue("@Subtotal", item.Subtotal);
                         cmdItem.ExecuteNonQuery();
 
                         // 3b. ATUALIZA O ESTOQUE na tabela LIVROS

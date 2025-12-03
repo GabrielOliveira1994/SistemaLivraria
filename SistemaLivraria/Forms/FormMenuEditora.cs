@@ -28,17 +28,17 @@ namespace SistemaLivraria.Forms
             // Configurar picIcon (ajustar posição para sobrepor a capa)
             picIcon.Size = new Size(100, 100);
             picIcon.Location = new Point(20, 100);
+            picIcon.BorderStyle = BorderStyle.Fixed3D;
+            picIcon.BackColor = Color.LightGray;
+            picIcon.SizeMode = PictureBoxSizeMode.Zoom;
             picIcon.BringToFront(); // Trazer para frente
 
             // Configurar lblBoasVindas
             lblBoasVindas.Location = new Point(130, 115);
             lblBoasVindas.Font = new Font("Arial", 14, FontStyle.Bold);
             lblBoasVindas.AutoSize = true;
-
-            // Se quiser que o texto fique com fundo branco:
             lblBoasVindas.BackColor = Color.White;
-            // OU transparente:
-            // lblBoasVindas.BackColor = Color.Transparent;
+            lblBoasVindas.Padding = new Padding(5);
         }
 
         // Método para definir qual editora está logada
@@ -68,27 +68,16 @@ namespace SistemaLivraria.Forms
                         if (reader.Read())
                         {
                             // Carregar ICON
-                            if (!reader.IsDBNull(0)) // Verifica se não é NULL
+                            if (!reader.IsDBNull(0))
                             {
                                 byte[] iconBytes = (byte[])reader["ICON"];
                                 picIcon.Image = ConverterBytesParaImagem(iconBytes);
                             }
-                            else
-                            {
-                                // Imagem padrão se não tiver icon
-                                picIcon.BackColor = Color.LightGray;
-                            }
-
                             // Carregar CAPA
-                            if (!reader.IsDBNull(1)) // Verifica se não é NULL
+                            if (!reader.IsDBNull(1))
                             {
                                 byte[] capaBytes = (byte[])reader["CAPA"];
                                 picCapa.Image = ConverterBytesParaImagem(capaBytes);
-                            }
-                            else
-                            {
-                                // Cor padrão se não tiver capa
-                                picCapa.BackColor = Color.DarkGray;
                             }
                         }
                     }
@@ -101,13 +90,21 @@ namespace SistemaLivraria.Forms
             }
         }
 
-        // Método auxiliar para converter byte[] em Image
+        // Método auxiliar para converter byte[] em Image (VERSÃO SEGURA)
         private Image ConverterBytesParaImagem(byte[] bytes)
         {
-            using (MemoryStream ms = new MemoryStream(bytes))
+            try
             {
-                return Image.FromStream(ms);
+                if (bytes == null || bytes.Length == 0) return null;
+                using (MemoryStream ms = new MemoryStream(bytes))
+                {
+                    Image imagemOriginal = Image.FromStream(ms);
+                    Image imagemCopia = new Bitmap(imagemOriginal);
+                    imagemOriginal.Dispose();
+                    return imagemCopia;
+                }
             }
+            catch { return null; }
         }
 
         // ===== EVENTOS DOS BOTÕES =====
@@ -126,12 +123,18 @@ namespace SistemaLivraria.Forms
             formMeusLivros.ShowDialog();
         }
 
+        // ===== NOVO BOTÃO =====
+        private void btnGerenciarAutores_Click(object sender, EventArgs e)
+        {
+            FormGerenciarAutores formAutores = new FormGerenciarAutores();
+            formAutores.ShowDialog();
+        }
+        // =======================
+
         private void btnMinhasVendas_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Relatório de vendas será implementado na FASE 7!",
-                            "Em breve...",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Information);
+            MessageBox.Show("Relatório de vendas será implementado na FASE 7!", "Em breve...",
+                            MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void btnInicio_Click(object sender, EventArgs e)
@@ -143,11 +146,8 @@ namespace SistemaLivraria.Forms
 
         private void btnSair_Click(object sender, EventArgs e)
         {
-            DialogResult resultado = MessageBox.Show(
-                "Deseja realmente sair?",
-                "Confirmar",
-                MessageBoxButtons.YesNo,
-                MessageBoxIcon.Question);
+            DialogResult resultado = MessageBox.Show("Deseja realmente sair?", "Confirmar",
+                                        MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
             if (resultado == DialogResult.Yes)
             {
@@ -163,7 +163,10 @@ namespace SistemaLivraria.Forms
 
         private void FormMenuEditora_Load(object sender, EventArgs e)
         {
-
+            // Opcional: Trazer o picIcon e lblBoasVindas para frente, caso estejam
+            // atrás de outros painéis no seu design.
+            picIcon.BringToFront();
+            lblBoasVindas.BringToFront();
         }
     }
 }

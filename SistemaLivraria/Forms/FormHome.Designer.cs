@@ -53,17 +53,17 @@
             this.panelTopo.Controls.Add(this.lblLogo);
             this.panelTopo.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelTopo.Location = new System.Drawing.Point(0, 0);
-            this.panelTopo.Margin = new System.Windows.Forms.Padding(2);
+            this.panelTopo.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panelTopo.Name = "panelTopo";
-            this.panelTopo.Size = new System.Drawing.Size(600, 81);
+            this.panelTopo.Size = new System.Drawing.Size(800, 100);
             this.panelTopo.TabIndex = 0;
             // 
             // btnTopo
             // 
-            this.btnTopo.Location = new System.Drawing.Point(535, 10);
-            this.btnTopo.Margin = new System.Windows.Forms.Padding(2);
+            this.btnTopo.Location = new System.Drawing.Point(685, 11);
+            this.btnTopo.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnTopo.Name = "btnTopo";
-            this.btnTopo.Size = new System.Drawing.Size(56, 19);
+            this.btnTopo.Size = new System.Drawing.Size(103, 23);
             this.btnTopo.TabIndex = 4;
             this.btnTopo.Text = "Voltar ao topo";
             this.btnTopo.UseVisualStyleBackColor = true;
@@ -71,10 +71,10 @@
             // 
             // btnLogin
             // 
-            this.btnLogin.Location = new System.Drawing.Point(410, 10);
-            this.btnLogin.Margin = new System.Windows.Forms.Padding(2);
+            this.btnLogin.Location = new System.Drawing.Point(547, 12);
+            this.btnLogin.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnLogin.Name = "btnLogin";
-            this.btnLogin.Size = new System.Drawing.Size(56, 19);
+            this.btnLogin.Size = new System.Drawing.Size(75, 23);
             this.btnLogin.TabIndex = 3;
             this.btnLogin.Text = "Login";
             this.btnLogin.UseVisualStyleBackColor = true;
@@ -82,10 +82,10 @@
             // 
             // btnCarrinho
             // 
-            this.btnCarrinho.Location = new System.Drawing.Point(326, 10);
-            this.btnCarrinho.Margin = new System.Windows.Forms.Padding(2);
+            this.btnCarrinho.Location = new System.Drawing.Point(435, 12);
+            this.btnCarrinho.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnCarrinho.Name = "btnCarrinho";
-            this.btnCarrinho.Size = new System.Drawing.Size(56, 19);
+            this.btnCarrinho.Size = new System.Drawing.Size(75, 23);
             this.btnCarrinho.TabIndex = 2;
             this.btnCarrinho.Text = "Carrinho";
             this.btnCarrinho.UseVisualStyleBackColor = true;
@@ -93,20 +93,19 @@
             // 
             // txtPesquisa
             // 
-            this.txtPesquisa.Location = new System.Drawing.Point(109, 7);
-            this.txtPesquisa.Margin = new System.Windows.Forms.Padding(2);
+            this.txtPesquisa.Location = new System.Drawing.Point(145, 9);
+            this.txtPesquisa.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtPesquisa.Name = "txtPesquisa";
-            this.txtPesquisa.Size = new System.Drawing.Size(76, 20);
+            this.txtPesquisa.Size = new System.Drawing.Size(100, 22);
             this.txtPesquisa.TabIndex = 1;
             this.txtPesquisa.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPesquisa_KeyPress);
             // 
             // lblLogo
             // 
             this.lblLogo.AutoSize = true;
-            this.lblLogo.Location = new System.Drawing.Point(11, 13);
-            this.lblLogo.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblLogo.Location = new System.Drawing.Point(15, 16);
             this.lblLogo.Name = "lblLogo";
-            this.lblLogo.Size = new System.Drawing.Size(31, 13);
+            this.lblLogo.Size = new System.Drawing.Size(38, 16);
             this.lblLogo.TabIndex = 0;
             this.lblLogo.Text = "Logo";
             // 
@@ -117,19 +116,18 @@
             this.panelFiltros.Controls.Add(this.cmbCategoria);
             this.panelFiltros.Controls.Add(this.label1);
             this.panelFiltros.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelFiltros.Location = new System.Drawing.Point(0, 81);
-            this.panelFiltros.Margin = new System.Windows.Forms.Padding(2);
+            this.panelFiltros.Location = new System.Drawing.Point(0, 100);
+            this.panelFiltros.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panelFiltros.Name = "panelFiltros";
-            this.panelFiltros.Size = new System.Drawing.Size(600, 81);
+            this.panelFiltros.Size = new System.Drawing.Size(800, 100);
             this.panelFiltros.TabIndex = 1;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(171, 18);
-            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label2.Location = new System.Drawing.Point(228, 22);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(43, 13);
+            this.label2.Size = new System.Drawing.Size(53, 16);
             this.label2.TabIndex = 3;
             this.label2.Text = "Editora:";
             this.label2.Click += new System.EventHandler(this.label2_Click);
@@ -137,29 +135,28 @@
             // cmbEditora
             // 
             this.cmbEditora.FormattingEnabled = true;
-            this.cmbEditora.Location = new System.Drawing.Point(218, 15);
-            this.cmbEditora.Margin = new System.Windows.Forms.Padding(2);
+            this.cmbEditora.Location = new System.Drawing.Point(291, 18);
+            this.cmbEditora.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.cmbEditora.Name = "cmbEditora";
-            this.cmbEditora.Size = new System.Drawing.Size(92, 21);
+            this.cmbEditora.Size = new System.Drawing.Size(121, 24);
             this.cmbEditora.TabIndex = 2;
             // 
             // cmbCategoria
             // 
             this.cmbCategoria.FormattingEnabled = true;
-            this.cmbCategoria.Location = new System.Drawing.Point(66, 15);
-            this.cmbCategoria.Margin = new System.Windows.Forms.Padding(2);
+            this.cmbCategoria.Location = new System.Drawing.Point(88, 18);
+            this.cmbCategoria.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.cmbCategoria.Name = "cmbCategoria";
-            this.cmbCategoria.Size = new System.Drawing.Size(92, 21);
+            this.cmbCategoria.Size = new System.Drawing.Size(121, 24);
             this.cmbCategoria.TabIndex = 1;
             this.cmbCategoria.SelectedIndexChanged += new System.EventHandler(this.cmbCategoria_SelectedIndexChanged);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(7, 18);
-            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label1.Location = new System.Drawing.Point(9, 22);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(55, 13);
+            this.label1.Size = new System.Drawing.Size(69, 16);
             this.label1.TabIndex = 0;
             this.label1.Text = "Categoria:";
             // 
@@ -167,21 +164,21 @@
             // 
             this.flowPanelLivros.AutoScroll = true;
             this.flowPanelLivros.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flowPanelLivros.Location = new System.Drawing.Point(0, 162);
-            this.flowPanelLivros.Margin = new System.Windows.Forms.Padding(2);
+            this.flowPanelLivros.Location = new System.Drawing.Point(0, 200);
+            this.flowPanelLivros.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.flowPanelLivros.Name = "flowPanelLivros";
-            this.flowPanelLivros.Size = new System.Drawing.Size(600, 204);
+            this.flowPanelLivros.Size = new System.Drawing.Size(800, 250);
             this.flowPanelLivros.TabIndex = 2;
             // 
             // FormHome
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(600, 366);
+            this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.flowPanelLivros);
             this.Controls.Add(this.panelFiltros);
             this.Controls.Add(this.panelTopo);
-            this.Margin = new System.Windows.Forms.Padding(2);
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "FormHome";
             this.Text = "FormHome";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormHome_FormClosing);

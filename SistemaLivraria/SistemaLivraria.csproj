@@ -77,6 +77,12 @@
     <Compile Include="Forms\FormFinalizarPedido.Designer.cs">
       <DependentUpon>FormFinalizarPedido.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\FormGerenciarAutores.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormGerenciarAutores.Designer.cs">
+      <DependentUpon>FormGerenciarAutores.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\FormHome.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -133,6 +139,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormFinalizarPedido.resx">
       <DependentUpon>FormFinalizarPedido.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormGerenciarAutores.resx">
+      <DependentUpon>FormGerenciarAutores.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormHome.resx">
       <DependentUpon>FormHome.cs</DependentUpon>
